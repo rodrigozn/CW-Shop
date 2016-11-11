@@ -5,18 +5,39 @@
 
 <html lang="en" class="no-js">
     <head>
-        <title>{% block title %}Saleor{% endblock %}</title>
+        <title>{% block title %}CW Shop{% endblock %}</title>
         {% block meta %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="{% block meta_description %}{% endblock %}">
-        <meta name="author" content="{% trans "Mirumee Software" %}">
+        <meta name="author" content="{% trans "Científica Web" %}">
         {% endblock meta %}
 
         {% render_bundle 'vendor' 'css' %}
         {% render_bundle 'storefront' 'css' %}
 
-        {% block stylesheet %}{% endblock stylesheet %}
+        {% block stylesheet %}
+		
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/color/multicolor.css" rel="stylesheet" type="text/css" id="changeColor" />
+<link href="css/flexslider.css" rel="stylesheet" type="text/css" />
+<link href="css/fancybox.css" rel="stylesheet" type="text/css" />
+<link href="css/masonry.css" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="img/favicon.ico" />
+<!-- Scripts -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+		
+		{% endblock stylesheet %}
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -25,100 +46,402 @@
     </head>
 
     <body itemscope itemtype="http://schema.org/WebPage">
-        {% block header %}
-            <header class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
-                <nav class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/">Saleor</a>
-                    </div>
-                    <div class="collapse navbar-collapse navbar-ex1-collapse">
-                        <ul class="nav navbar-nav">
-                            {% for category in categories %}
-                                <li>
-                                    <a href="{{ category.get_absolute_url }}">
-                                        {{ category }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="{% url "cart:index" %}"><i class="glyphicon glyphicon-shopping-cart"></i> {% trans "Cart" %} {% if cart_counter %}<span class="badge">{{ cart_counter }}</span>{% endif %}</a>
-                            </li>
-                            {% if user.is_authenticated %}
-                            <li class="dropdown">
-                                <a data-toggle="dropdown" class="dropdown-toggle" href=".">{% blocktrans %}Hello, {{ user }}{% endblocktrans %} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url "profile:details" %}">{% trans "Your profile" %}</a></li>
-                                    <li><a href="{% url "profile:orders" %}">{% trans "Your orders" %}</a></li>
-                                    {% if user.is_staff %}
-                                        <li class="divider"></li>
-                                        <li><a href="{% url "dashboard:index" %}" traget="_blank">{% trans "Dashboard" %}</a></li>
-                                    {% endif %}
-                                    <li class="divider"></li>
-                                    <li><a href="{% url "registration:logout" %}">{% trans "Log out" %}</a></li>
-                                  </ul>
-                            </li>
-                            {% else %}
-                            <li>
-                                <a href="{% url "registration:login" %}">Sign in</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-        {% endblock %}
-        {% if messages %}
-        <div class="container">
-            {% for message in messages %}
-            <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ message }}
-            </div>
-            {% endfor %}
+  <div class="header">
+  <div class="container">
+    <div class="row"> 
+      
+      <!-- Secondary Menu -->
+      <ul class="nav nav-pills span6">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Wish List</a></li>
+        <li><a href="#">My Account</a></li>
+        <li><a href="#">Shopping Cart</a></li>
+        <li><a href="#">Checkout</a></li>
+      </ul>
+      
+      <!-- Header Cart -->
+      <div class="cart"><i class="icon-shopping-cart"></i>
+        <p>&euro; 0,00 <span>( 0 )</span></p>
+        
+        <!-- Header Cart Content -->
+        <div class="cart-content">
+          <div class="mini-cart-info">
+            <h3>Shopping Cart</h3>
+            <p class="empty">Empty cart</p>
+          </div>
         </div>
-        {% endif %}
-        <div class="container">
-            {% block outerbreadcrumb %}
-            <ul class="breadcrumb" itemprop="breadcrumb">
-                {% block breadcrumb %}
-                <li>
-                    <a href="/">{% trans "Home" %}</a>
-                </li>
-                {% endblock breadcrumb %}
-            </ul>
-            {% endblock outerbreadcrumb %}
-            {% block outercontent %}
-            <div class="row">
-                <div class="col-sm-12">
-                    {% block content %}
-                        <div class="row">
-                            {% include "category/_items.html" %}
-                        </div>
-                    {% endblock content %}
-                </div>
+      </div>
+      
+      <!-- Currency -->
+      <ul class="nav nav-pills currency">
+        <li class="active"><a href="#">&euro;</a></li>
+        <li><a href="#">$</a></li>
+        <li><a href="#">&pound;</a></li>
+      </ul>
+      
+      <!-- Header Login -->
+      <p class="log-reg"><a href="#">Sign In</a> <a href="#">Register</a></p>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Logo --> 
+<a href="#" id="logo"><img src="img/logo.png" alt="logo" /></a> 
+
+<!-- Main Navbar -->
+<hr class="bordered" />
+<div class="navbar-cont">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container"><a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse"><i class="icon-align-justify"></i></a>
+              <div class="nav-collapse collapse navbar-responsive-collapse">
+                <ul class="nav">
+                  <li class="active"><a href="index.html">Home</a></li>
+                  <li class="dropdown"><a href="about.html" class="dropdown-toggle" data-toggle="dropdown">Pages<i class="icon-angle-down"></i></a> 
+                    
+                    <!-- Dropdown Navbar -->
+                    <ul class="dropdown-menu">
+                      <li><a href="about.html">About</a></li>
+                      <li><a href="services.html">Services</a></li>
+                      <li><a href="full-width.html">Full Width</a></li>
+                      <li><a href="left-sidebar.html">Left Sidebar</a></li>
+                      <li><a href="right-sidebar.html">Right Sidebar</a></li>
+                      <li><a href="page-404.html">Page 404</a></li>
+                      <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a href="portfolio-columns.html" class="dropdown-toggle" data-toggle="dropdown">Portfolio<i class="icon-angle-down"></i></a> 
+                    
+                    <!-- Dropdown Navbar -->
+                    <ul class="dropdown-menu">
+                      <li><a href="portfolio-columns.html">Portfolio Columns</a></li>
+                      <li><a href="portfolio-masonry.html">Portfolio Masonry</a></li>
+                      <li><a href="portfolio-detail.html">Portfolio Single</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a href="blog-home.html" class="dropdown-toggle" data-toggle="dropdown">Blog<i class="icon-angle-down"></i></a> 
+                    
+                    <!-- Dropdown Navbar -->
+                    <ul class="dropdown-menu">
+                      <li><a href="blog-home.html">Blog Home</a></li>
+                      <li><a href="blog-post.html">Blog Post</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a href="shop-home.html" class="dropdown-toggle" data-toggle="dropdown">Shop<i class="icon-angle-down"></i></a> 
+                    
+                    <!-- Dropdown Navbar -->
+                    <ul class="dropdown-menu">
+                      <li><a href="shop-home.html">Shop Home</a></li>
+                      <li><a href="category.html">Shop Category List</a></li>
+                      <li><a href="product.html">Shop Product Detail</a></li>
+                      <li><a href="cart.html">Shop Cart</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="contact.html">Contact</a></li>
+                </ul>
+                
+                <!-- Navbar Search -->
+                <form action="header-search" class="header-search">
+                  <fieldset>
+                    <input type="text" placeholder="Search" />
+                    <button><i class="icon-search"></i></button>
+                  </fieldset>
+                </form>
+              </div>
             </div>
-            {% endblock outercontent %}
+          </div>
         </div>
-        {% block footer %}
-            <footer>
-                <div class="container">
-                    <p class="pull-right">
-                        &copy; Mirumee Software 2016
-                    </p>
-                </div>
-            </footer>
-        {% endblock %}
-        {% block footer_scripts %}
-            {% render_bundle 'vendor' 'js' %}
-            {% render_bundle 'storefront' 'js' %}
-        {% endblock footer_scripts %}
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="bordered" />
+<div class="container">
+  <div class="row">
+    <div class="span12"> 
+      
+      <!-- Flex Slider -->
+      <div class="flexslider">
+        <ul class="slides">
+          <li><a href="#"><img src="banner/slider.jpg" alt="Slider" /></a></li>
+          <li><a href="#"><img src="banner/slider2.jpg" alt="Slider" /></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Products List -->
+<div class="products-list">
+  <div class="container">
+    <h3><span>Featured</span> Products</h3>
+    <ul class="thumbnails">
+      
+      <!-- Products Single Box -->
+      <li class="span3">
+        <div class="thumbnail"><a href="#" class="thumb"><img src="products/iphone.png" alt="Product" /></a>
+          <p><a href="#">iPhone 5 16GB Black</a></p>
+          <p class="price">&euro; 574</p>
+          <p class="rating"><i class="icon-star"><span>1</span></i><i class="icon-star"><span>2</span></i><i class="icon-star"><span>3</span></i><i class="icon-star-half-empty"><span>4</span></i><i class="icon-star-empty"><span>5</span></i></p>
+          <input type="button" value="Add to Cart" class="btn" />
+          <a href="#" class="add-list"><i class="icon-star"></i>Wish List</a><a href="#" class="add-comp"><i class="icon-tasks"></i>Compare</a><span class="new">New</span></div>
+      </li>
+      
+      <!-- Products Single Box -->
+      <li class="span3">
+        <div class="thumbnail"><a href="#" class="thumb"><img src="products/ipad.png" alt="Product" /></a>
+          <p><a href="#">iPad 2 16GB White</a></p>
+          <p class="price">&euro; 308</p>
+          <p class="rating"><i class="icon-star"><span>1</span></i><i class="icon-star"><span>2</span></i><i class="icon-star"><span>3</span></i><i class="icon-star"><span>4</span></i><i class="icon-star-empty"><span>5</span></i></p>
+          <input type="button" value="Add to Cart" class="btn" />
+          <a href="#" class="add-list"><i class="icon-star"></i>Wish List</a><a href="#" class="add-comp"><i class="icon-tasks"></i>Compare</a></div>
+      </li>
+      
+      <!-- Products Single Box -->
+      <li class="span3">
+        <div class="thumbnail"><a href="#" class="thumb"><img src="products/iphone.png" alt="Product" /></a>
+          <p><a href="#">iPhone 5 16GB Black</a></p>
+          <p class="price"><span>&euro; 1.230</span> &euro; 880</p>
+          <p class="rating"><i class="icon-star"><span>1</span></i><i class="icon-star"><span>2</span></i><i class="icon-star"><span>3</span></i><i class="icon-star"><span>4</span></i><i class="icon-star-empty"><span>5</span></i></p>
+          <input type="button" value="Add to Cart" class="btn" />
+          <a href="#" class="add-list"><i class="icon-star"></i>Wish List</a><a href="#" class="add-comp"><i class="icon-tasks"></i>Compare</a><span class="sale">Sale</span></div>
+      </li>
+      
+      <!-- Products Single Box -->
+      <li class="span3">
+        <div class="thumbnail"><a href="#" class="thumb"><img src="products/iphone.png" alt="Product" /></a>
+          <p><a href="#">iPhone 5 16GB Black</a></p>
+          <p class="price">&euro; 1.340</p>
+          <p class="rating"><i class="icon-star"><span>1</span></i><i class="icon-star"><span>2</span></i><i class="icon-star"><span>3</span></i><i class="icon-star"><span>4</span></i><i class="icon-star-empty"><span>5</span></i></p>
+          <input type="button" value="Add to Cart" class="btn" />
+          <a href="#" class="add-list"><i class="icon-star"></i>Wish List</a><a href="#" class="add-comp"><i class="icon-tasks"></i>Compare</a></div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <h2 class="text-center margin-top margin-bottom">Our <span>Services</span></h2>
+      
+      <!-- Services List -->
+      <ul class="thumbnails about-list">
+        
+        <!-- Service Single -->
+        <li class="span3">
+          <div class="thumbnail"><i class="icon-globe icon-service"></i>
+            <div class="caption">
+              <h3><a href="#">Web Developer</a></h3>
+              <em>Subtitle here</em>
+              <div class="clearfix"></div>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam <strong>euismod</strong>.</p>
+            </div>
+          </div>
+        </li>
+        
+        <!-- Service Single -->
+        <li class="span3">
+          <div class="thumbnail"><i class="icon-key icon-service"></i>
+            <div class="caption">
+              <h3><a href="#">Web Developer</a></h3>
+              <em>Subtitle here</em>
+              <div class="clearfix"></div>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam <strong>euismod</strong>.</p>
+            </div>
+          </div>
+        </li>
+        
+        <!-- Service Single -->
+        <li class="span3">
+          <div class="thumbnail"><i class="icon-leaf icon-service"></i>
+            <div class="caption">
+              <h3><a href="#">Web Developer</a></h3>
+              <em>Subtitle here</em>
+              <div class="clearfix"></div>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam <strong>euismod</strong>.</p>
+            </div>
+          </div>
+        </li>
+        
+        <!-- Service Single -->
+        <li class="span3">
+          <div class="thumbnail"><i class="icon-wrench icon-service"></i>
+            <div class="caption">
+              <h3><a href="#">Web Developer</a></h3>
+              <em>Subtitle here</em>
+              <div class="clearfix"></div>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam <strong>euismod</strong>.</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <hr />
+      
+      <!-- Portfolio Columns -->
+      <div class="products-list products-list-simple">
+        <h2 class="text-center margin-top margin-bottom">Latest <span>Works</span></h2>
+        <ul class="thumbnails">
+          
+          <!-- Products Single Box -->
+          <li class="span3">
+            <div class="thumbnail"><img src="products/folio-1.jpg" alt="Product" class="folio" />
+              <div class="folio-detail"><a href="products/folio-1.jpg" class="view-fancybox" rel="tag"><i class="icon-camera"></i></a></div>
+            </div>
+          </li>
+          
+          <!-- Products Single Box -->
+          <li class="span3">
+            <div class="thumbnail"><img src="products/folio-2.jpg" alt="Product" class="folio" />
+              <div class="folio-detail"><a href="products/folio-2.jpg" class="view-fancybox" rel="tag"><i class="icon-camera"></i></a></div>
+            </div>
+          </li>
+          
+          <!-- Products Single Box -->
+          <li class="span3">
+            <div class="thumbnail"><img src="products/folio-3.jpg" alt="Product" class="folio" />
+              <div class="folio-detail"><a href="products/folio-3.jpg" class="view-fancybox" rel="tag"><i class="icon-camera"></i></a></div>
+            </div>
+          </li>
+          
+          <!-- Products Single Box -->
+          <li class="span3">
+            <div class="thumbnail"><img src="products/folio-4.jpg" alt="Product" class="folio" />
+              <div class="folio-detail"><a href="products/folio-4.jpg" class="view-fancybox" rel="tag"><i class="icon-camera"></i></a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Small Banners -->
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      <div class="banner-small"><a href="#"><img src="banner/banner-small-1.jpg" alt="Banner" /></a></div>
+    </div>
+    <div class="span6">
+      <div class="banner-small"><a href="#"><img src="banner/banner-small-2.jpg" alt="Banner" /></a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Brands List -->
+<div class="container">
+  <div class="brands">
+    <ul class="thumbnails">
+      <li class="span2"><a href="#"><img src="brands/apple.png" alt="Logo" class="thumbnail" /></a></li>
+      <li class="span2"><a href="#"><img src="brands/canon.png" alt="Logo" class="thumbnail" /></a></li>
+      <li class="span2"><a href="#"><img src="brands/sony.png" alt="Logo" class="thumbnail" /></a></li>
+      <li class="span2"><a href="#"><img src="brands/microsoft.png" alt="Logo" class="thumbnail" /></a></li>
+      <li class="span2"><a href="#"><img src="brands/hp.png" alt="Logo" class="thumbnail" /></a></li>
+      <li class="span2"><a href="#"><img src="brands/samsung.png" alt="Logo" class="thumbnail" /></a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="container">
+    <div class="row"> 
+      
+      <!-- Footer Info -->
+      <div class="span3">
+        <h5><i class="icon-globe"></i>Negozio Preciso</h5>
+        <img src="products/store.jpg" alt="Store" /> </div>
+      <div class="span3">
+        <h5><i class="icon-globe"></i>About</h5>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam <strong>nonummy nibh</strong> euismod tincidunt ut laoreet. Ut wisi enim ad minim veniam, quis nostrud exerci tation <a href="#">ullamcorper suscipit</a> lobortis.</p>
+      </div>
+      
+      <!-- Footer Contact -->
+      <div class="span3">
+        <h5><i class="icon-asterisk"></i>Contact Us</h5>
+        <ul class="footer-contact">
+          <li><i class="icon-map-marker"></i>123 Yellow Av, New York</li>
+          <li><i class="icon-phone"></i>123123123</li>
+          <li><i class="icon-mobile-phone"></i>123123123</li>
+          <li><i class="icon-envelope-alt"></i><a href="#">your@email.com</a></li>
+        </ul>
+      </div>
+      
+      <!-- Footer Social -->
+      <div class="span3">
+        <h5><i class="icon-rss"></i>Keep in touch</h5>
+        <div class="footer-social"> <a href="#" class="icon-facebook"></a> <a href="#" class="icon-twitter"></a> <a href="#" class="icon-google-plus"></a> <a href="#" class="icon-pinterest"></a> <a href="#" class="icon-linkedin"></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer Links -->
+<div class="footer-links">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <h5><i class="icon-info"></i>Information</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Delivery Information</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+      <div class="span3">
+        <h5><i class="icon-comment"></i>Customer Service</h5>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Delivery</a></li>
+          <li><a href="#">Site Map</a></li>
+        </ul>
+      </div>
+      <div class="span3">
+        <h5><i class="icon-folder-open"></i>Extras</h5>
+        <ul>
+          <li><a href="#">Brands</a></li>
+          <li><a href="#">Gift Vouchers</a></li>
+          <li><a href="#">Affiliates</a></li>
+          <li><a href="#">Specials</a></li>
+        </ul>
+      </div>
+      <div class="span3">
+        <h5><i class="icon-unlock-alt"></i>My Account</h5>
+        <ul>
+          <li><a href="#">My Account</a></li>
+          <li><a href="#">Order History</a></li>
+          <li><a href="#">Wish List</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="bordered" />
+</div>
+
+<!-- Copy -->
+<div class="copy">
+  <div class="container">
+    <div class="row">
+      <div class="span12"> 
+        
+        <!-- Cards --> 
+        <img src="img/cards.png" alt="Cards" />
+        <p class="text-center">Powered by <strong>OpenCart</strong> - &copy; 2013 <a href="#">Your Store</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Change Color -->
+<div class="colorSw"><a href="#" class="change-css change-css-multicolor" rel="css/color/multicolor.css">Multicolor</a> <a href="#" class="change-css change-css-red" rel="css/color/red.css">Red</a> <a href="#" class="change-css change-css-green" rel="css/color/green.css">Green</a> <a href="#" class="change-css change-css-yellow" rel="css/color/yellow.css">Yellow</a> <a href="#" class="change-css change-css-blue" rel="css/color/blue.css">Blue</a> <a href="#" class="change-css change-css-violet" rel="css/color/violet.css">Violet</a></div>
+
+<!-- to Top -->
+<div id="toTop"><i class="icon-chevron-up icon-white"></i></div>
     </body>
 </html>
