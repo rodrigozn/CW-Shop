@@ -40,3 +40,10 @@ addons:
     packages:
       - python3.5
       - python3.5-dev
+language: ruby
+rvm:
+ - 2.2
+ - jruby
+ - rbx-2
+# uncomment and edit the following line if your project needs to run something other than `rake`:
+# script: bundle exec rspec spec
